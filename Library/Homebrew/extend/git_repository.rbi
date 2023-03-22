@@ -1,5 +1,5 @@
 # typed: strict
 
-class GitRepositoryExtension < SimpleDelegator
+class GitPath < SimpleDelegator
   include Kernel
 end
