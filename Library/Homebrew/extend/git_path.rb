@@ -10,6 +10,8 @@ require "utils/popen"
 class GitPath < SimpleDelegator
   extend T::Sig
 
+  alias pathname __getobj__
+
   sig { returns(T::Boolean) }
   def git?
     __getobj__.join(".git").exist?
@@ -99,11 +101,6 @@ class GitPath < SimpleDelegator
   sig { params(commit: String, safe: T::Boolean).returns(T.nilable(String)) }
   def git_commit_message(commit = "HEAD", safe: false)
     popen_git("log", "-1", "--pretty=%B", commit, "--", safe: safe, err: :out)&.strip
-  end
-
-  sig { returns(Pathname) }
-  def pathname
-    __getobj__
   end
 
   private
