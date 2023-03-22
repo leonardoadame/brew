@@ -101,8 +101,7 @@ class Tap
     @repo = repo
     @name = "#{@user}/#{@repo}".downcase
     @full_name = "#{@user}/homebrew-#{@repo}"
-    @path = TAP_DIRECTORY/@full_name.downcase
-    @path.extend(GitRepositoryExtension)
+    @path = GitRepositoryExtension.new(TAP_DIRECTORY/@full_name.downcase)
     @alias_table = nil
     @alias_reverse_table = nil
   end
@@ -315,7 +314,7 @@ class Tap
       ignore_interrupts do
         # wait for git to possibly cleanup the top directory when interrupt happens.
         sleep 0.1
-        FileUtils.rm_rf path
+        FileUtils.rm_rf path.__getobj__
         path.parent.rmdir_if_possible
       end
       raise
@@ -462,7 +461,7 @@ class Tap
 
   sig { returns(T::Array[Pathname]) }
   def potential_formula_dirs
-    @potential_formula_dirs ||= [path/"Formula", path/"HomebrewFormula", path].freeze
+    @potential_formula_dirs ||= [path/"Formula", path/"HomebrewFormula", path.__getobj__].freeze
   end
 
   # Path to the directory of all {Cask} files for this {Tap}.
@@ -567,7 +566,7 @@ class Tap
   sig { params(file: T.any(String, Pathname)).returns(T::Boolean) }
   def formula_file?(file)
     file = Pathname.new(file) unless file.is_a? Pathname
-    file = file.expand_path(path)
+    file = file.expand_path(path.__getobj__)
     return false unless ruby_file?(file)
 
     file.to_s.start_with?("#{formula_dir}/")
@@ -579,7 +578,7 @@ class Tap
   sig { params(file: T.any(String, Pathname)).returns(T::Boolean) }
   def cask_file?(file)
     file = Pathname.new(file) unless file.is_a? Pathname
-    file = file.expand_path(path)
+    file = file.expand_path(path.__getobj__)
     return false unless ruby_file?(file)
 
     file.to_s.start_with?("#{cask_dir}/")

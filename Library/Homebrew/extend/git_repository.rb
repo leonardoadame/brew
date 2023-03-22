@@ -7,12 +7,12 @@ require "utils/popen"
 # Extensions to {Pathname} for querying Git repository information.
 # @see Utils::Git
 # @api private
-module GitRepositoryExtension
+class GitRepositoryExtension < SimpleDelegator
   extend T::Sig
 
   sig { returns(T::Boolean) }
   def git?
-    join(".git").exist?
+    __getobj__.join(".git").exist?
   end
 
   # Gets the URL of the Git origin remote.
@@ -26,7 +26,7 @@ module GitRepositoryExtension
   def git_origin=(origin)
     return if !git? || !Utils::Git.available?
 
-    safe_system Utils::Git.git, "remote", "set-url", "origin", origin, chdir: self
+    safe_system Utils::Git.git, "remote", "set-url", "origin", origin, chdir: __getobj__
   end
 
   # Gets the full commit hash of the HEAD commit.
@@ -108,7 +108,7 @@ module GitRepositoryExtension
     unless git?
       return unless safe
 
-      raise "Not a Git repository: #{self}"
+      raise "Not a Git repository: #{__getobj__}"
     end
 
     unless Utils::Git.available?
@@ -117,6 +117,6 @@ module GitRepositoryExtension
       raise "Git is unavailable"
     end
 
-    T.unsafe(Utils).popen_read(Utils::Git.git, *args, safe: safe, chdir: self, err: err).chomp.presence
+    Utils.popen_read(Utils::Git.git, *args, safe: safe, chdir: __getobj__, err: err).chomp.presence
   end
 end

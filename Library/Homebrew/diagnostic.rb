@@ -155,7 +155,7 @@ module Homebrew
       def broken_tap(tap)
         return unless Utils::Git.available?
 
-        repo = HOMEBREW_REPOSITORY.dup.extend(GitRepositoryExtension)
+        repo = GitRepositoryExtension.new(HOMEBREW_REPOSITORY)
         return unless repo.git?
 
         message = <<~EOS
@@ -516,7 +516,7 @@ module Homebrew
       end
 
       def check_brew_git_origin
-        repo = HOMEBREW_REPOSITORY.dup.extend(GitRepositoryExtension)
+        repo = GitRepositoryExtension.new(HOMEBREW_REPOSITORY)
         examine_git_origin(repo, Homebrew::EnvConfig.brew_git_remote)
       end
 

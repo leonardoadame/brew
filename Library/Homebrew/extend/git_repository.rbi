@@ -1,5 +1,5 @@
 # typed: strict
 
-module GitRepositoryExtension
-  requires_ancestor { Pathname }
+class GitRepositoryExtension < SimpleDelegator
+  include Kernel
 end
