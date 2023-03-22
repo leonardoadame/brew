@@ -101,6 +101,11 @@ class GitPath < SimpleDelegator
     popen_git("log", "-1", "--pretty=%B", commit, "--", safe: safe, err: :out)&.strip
   end
 
+  sig { returns(Pathname) }
+  def pathname
+    __getobj__
+  end
+
   private
 
   sig { params(args: T.untyped, safe: T::Boolean, err: T.nilable(Symbol)).returns(T.nilable(String)) }
