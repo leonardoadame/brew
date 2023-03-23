@@ -127,7 +127,7 @@ module Homebrew
       end
 
       def examine_git_origin(repository_path, desired_origin)
-        return if !Utils::Git.available? || !repository_path.git?
+        return if !Utils::Git.available? || !repository_path.git_repo?
 
         current_origin = repository_path.git_origin
 
@@ -156,7 +156,7 @@ module Homebrew
         return unless Utils::Git.available?
 
         repo = GitRepoPath.new(HOMEBREW_REPOSITORY)
-        return unless repo.git?
+        return unless repo.git_repo?
 
         message = <<~EOS
           #{tap.full_name} was not tapped properly! Run:

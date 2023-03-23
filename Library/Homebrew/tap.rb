@@ -163,7 +163,7 @@ class Tap
 
   # True if this {Tap} is a Git repository.
   def git?
-    path.git?
+    path.git_repo?
   end
 
   # git branch for this {Tap}.
@@ -1013,21 +1013,21 @@ class TapConfig
   end
 
   def [](key)
-    return unless tap.git?
+    return unless tap.git_repo?
     return unless Utils::Git.available?
 
     Homebrew::Settings.read key, repo: tap.path
   end
 
   def []=(key, value)
-    return unless tap.git?
+    return unless tap.git_repo?
     return unless Utils::Git.available?
 
     Homebrew::Settings.write key, value.to_s, repo: tap.path
   end
 
   def delete(key)
-    return unless tap.git?
+    return unless tap.git_repo?
     return unless Utils::Git.available?
 
     Homebrew::Settings.delete key, repo: tap.path
