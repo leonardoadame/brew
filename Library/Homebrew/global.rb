@@ -128,7 +128,7 @@ end
 
 require "context"
 require "extend/array"
-require "extend/git_path"
+require "extend/git_repo_path"
 require "extend/pathname"
 require "extend/predicable"
 require "extend/module"
