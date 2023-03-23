@@ -14,7 +14,7 @@ class GitRepoPath < SimpleDelegator
 
   sig { returns(T::Boolean) }
   def git_repo?
-    __getobj__.join(".git").exist?
+    pathname.join(".git").exist?
   end
 
   # Gets the URL of the Git origin remote.
@@ -28,7 +28,7 @@ class GitRepoPath < SimpleDelegator
   def git_origin=(origin)
     return if !git_repo? || !Utils::Git.available?
 
-    safe_system Utils::Git.git, "remote", "set-url", "origin", origin, chdir: __getobj__
+    safe_system Utils::Git.git, "remote", "set-url", "origin", origin, chdir: pathname
   end
 
   # Gets the full commit hash of the HEAD commit.
@@ -110,7 +110,7 @@ class GitRepoPath < SimpleDelegator
     unless git_repo?
       return unless safe
 
-      raise "Not a Git repository: #{__getobj__}"
+      raise "Not a Git repository: #{pathname}"
     end
 
     unless Utils::Git.available?
@@ -119,6 +119,6 @@ class GitRepoPath < SimpleDelegator
       raise "Git is unavailable"
     end
 
-    Utils.popen_read(Utils::Git.git, *args, safe: safe, chdir: __getobj__, err: err).chomp.presence
+    Utils.popen_read(Utils::Git.git, *args, safe: safe, chdir: pathname, err: err).chomp.presence
   end
 end
