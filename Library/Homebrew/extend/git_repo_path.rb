@@ -13,7 +13,7 @@ class GitRepoPath < SimpleDelegator
   alias pathname __getobj__
 
   sig { returns(T::Boolean) }
-  def git?
+  def git_repo?
     __getobj__.join(".git").exist?
   end
 
@@ -26,7 +26,7 @@ class GitRepoPath < SimpleDelegator
   # Sets the URL of the Git origin remote.
   sig { params(origin: String).returns(T.nilable(T::Boolean)) }
   def git_origin=(origin)
-    return if !git? || !Utils::Git.available?
+    return if !git_repo? || !Utils::Git.available?
 
     safe_system Utils::Git.git, "remote", "set-url", "origin", origin, chdir: __getobj__
   end
@@ -107,7 +107,7 @@ class GitRepoPath < SimpleDelegator
 
   sig { params(args: T.untyped, safe: T::Boolean, err: T.nilable(Symbol)).returns(T.nilable(String)) }
   def popen_git(*args, safe: false, err: nil)
-    unless git?
+    unless git_repo?
       return unless safe
 
       raise "Not a Git repository: #{__getobj__}"
