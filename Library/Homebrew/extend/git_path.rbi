@@ -1,6 +1,6 @@
 # typed: strict
 
-class GitPath < SimpleDelegator
+class GitRepoPath < SimpleDelegator
   include Kernel
 
   # This is a workaround to enable `alias pathname __getobj__`

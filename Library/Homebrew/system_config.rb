@@ -32,9 +32,9 @@ module SystemConfig
       end
     end
 
-    sig { returns(GitPath) }
+    sig { returns(GitRepoPath) }
     def homebrew_repo
-      GitPath.new(HOMEBREW_REPOSITORY)
+      GitRepoPath.new(HOMEBREW_REPOSITORY)
     end
 
     sig { returns(String) }

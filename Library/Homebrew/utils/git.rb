@@ -4,7 +4,7 @@
 module Utils
   # Helper functions for querying Git information.
   #
-  # @see GitPath
+  # @see GitRepoPath
   # @api private
   module Git
     extend T::Sig

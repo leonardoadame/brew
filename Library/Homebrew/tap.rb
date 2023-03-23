@@ -101,7 +101,7 @@ class Tap
     @repo = repo
     @name = "#{@user}/#{@repo}".downcase
     @full_name = "#{@user}/homebrew-#{@repo}"
-    @path = GitPath.new(TAP_DIRECTORY/@full_name.downcase)
+    @path = GitRepoPath.new(TAP_DIRECTORY/@full_name.downcase)
     @alias_table = nil
     @alias_reverse_table = nil
   end
