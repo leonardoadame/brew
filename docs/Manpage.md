@@ -228,6 +228,10 @@ an issue; just ignore this.
 Download a bottle (if available) or source packages for *`formula`*e
 and binaries for *`cask`*s. For files, also print SHA-256 checksums.
 
+* `--os`:
+  Download for the given operating system.(Pass `all` to download for all operating systems.)
+* `--arch`:
+  Download for the given CPU architecture.(Pass `all` to download for all architectures.)
 * `--bottle-tag`:
   Download a bottle for given tag.
 * `--HEAD`:
@@ -547,6 +551,10 @@ This can be useful for debugging issues across all items when making
 significant changes to `formula.rb`, testing the performance of loading
 all items or checking if any current formulae/casks have Ruby issues.
 
+* `--os`:
+  Read using the given operating system. (Pass `all` to simulate all operating systems.)
+* `--arch`:
+  Read using the given CPU architecture. (Pass `all` to simulate all architectures.)
 * `--aliases`:
   Verify any alias symlinks in each tap.
 * `--syntax`:
@@ -831,6 +839,10 @@ Display Homebrew's download cache. See also `HOMEBREW_CACHE`.
 
 If *`formula`* is provided, display the file or directory used to cache *`formula`*.
 
+* `--os`:
+  Show cache file for the given operating system.(Pass `all` to show cache files for all operating systems.)
+* `--arch`:
+  Show cache file for the given CPU architecture.(Pass `all` to show cache files for all architectures.)
 * `-s`, `--build-from-source`:
   Show the cache file used when building from source.
 * `--force-bottle`:
@@ -905,6 +917,10 @@ submitting a new formula or cask. If no *`formula`*|*`cask`* are provided, check
 locally available formulae and casks and skip style checks. Will exit with a
 non-zero status if any errors are found.
 
+* `--os`:
+  Audit the given operating system. (Pass `all` to audit all operating systems.)
+* `--arch`:
+  Audit the given CPU architecture. (Pass `all` to audit all architectures.)
 * `--strict`:
   Run additional, stricter style checks.
 * `--git`:
@@ -1139,7 +1155,7 @@ Display the path to the file being used when invoking `brew` *`cmd`*.
 Contributions to Homebrew repos.
 
 * `--repositories`:
-  Specify a comma-separated (no spaces) list of repositories to search. Supported repositories: `brew`, `core`, `cask`, `aliases`, `autoupdate`, `bundle`, `command-not-found`, `test-bot`, `services`, `cask-drivers`, `cask-fonts` and `cask-versions`. Omitting this flag, or specifying `--repositories=all`, searches all repositories. Use `--repositories=primary` to search only the main repositories: brew,core,cask.
+  Specify a comma-separated (no spaces) list of repositories to search. Supported repositories: `brew`, `core`, `cask`, `aliases`, `autoupdate`, `bundle`, `command-not-found`, `test-bot`, `services`, `cask-fonts` and `cask-versions`. Omitting this flag, or specifying `--repositories=all`, searches all repositories. Use `--repositories=primary` to search only the main repositories: brew,core,cask.
 * `--from`:
   Date (ISO-8601 format) to start searching contributions.
 * `--to`:
@@ -1837,6 +1853,8 @@ This sanitized build environment ignores unrequested dependencies, which makes s
   `list` Mac App Store dependencies.
 * `--whalebrew`:
   `list` Whalebrew dependencies.
+* `--vscode`:
+  `list` VSCode extensions.
 * `--describe`:
   `dump` adds a description comment above each line, unless the dependency does not have a description.
 * `--no-restart`:
@@ -2362,7 +2380,7 @@ Homebrew API: <https://rubydoc.brew.sh>
 
 Homebrew's Project Leader is Mike McQuaid.
 
-Homebrew's Project Leadership Committee is Colin Dean, Issy Long, Jonathan Chang, Mike McQuaid, Misty De Méo and Sean Molenaar.
+Homebrew's Project Leadership Committee is Colin Dean, Issy Long, Mike McQuaid, Misty De Méo and Sean Molenaar.
 
 Homebrew's Technical Steering Committee is Bo Anderson, FX Coudert, Michka Popoff, Mike McQuaid and Rylan Polster.
 

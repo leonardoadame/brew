@@ -3065,22 +3065,6 @@ class Cask::DSL::Version
   def underscores_to_hyphens(); end
 end
 
-class Caveats
-  def empty?(*args, &block); end
-
-  def to_s(*args, &block); end
-end
-
-class Checksum
-  def [](*args, &block); end
-
-  def empty?(*args, &block); end
-
-  def length(*args, &block); end
-
-  def to_s(*args, &block); end
-end
-
 class Class
   def any_instance(); end
 end
@@ -3840,13 +3824,13 @@ class Formula
 
   def on_sierra(or_condition=T.unsafe(nil), &block); end
 
+  def on_sonoma(or_condition=T.unsafe(nil), &block); end
+
   def on_system(linux, macos:, &block); end
 
   def on_system_conditional(macos: T.unsafe(nil), linux: T.unsafe(nil)); end
 
   def on_ventura(or_condition=T.unsafe(nil), &block); end
-
-  def uses_from_macos_names(*args, &block); end
 end
 
 class Formula
@@ -3871,6 +3855,8 @@ class Formula
   def self.on_monterey(or_condition=T.unsafe(nil), &block); end
 
   def self.on_sierra(or_condition=T.unsafe(nil), &block); end
+
+  def self.on_sonoma(or_condition=T.unsafe(nil), &block); end
 
   def self.on_system(linux, macos:, &block); end
 
@@ -4262,12 +4248,6 @@ class Homebrew::Livecheck::Strategy::Sparkle::Item
 end
 
 class Homebrew::Service
-  def bin(*args, &block); end
-
-  def etc(*args, &block); end
-
-  def libexec(*args, &block); end
-
   def on_arch_conditional(arm: T.unsafe(nil), intel: T.unsafe(nil)); end
 
   def on_arm(&block); end
@@ -4292,21 +4272,11 @@ class Homebrew::Service
 
   def on_sierra(or_condition=T.unsafe(nil), &block); end
 
+  def on_sonoma(or_condition=T.unsafe(nil), &block); end
+
   def on_system(linux, macos:, &block); end
 
   def on_ventura(or_condition=T.unsafe(nil), &block); end
-
-  def opt_bin(*args, &block); end
-
-  def opt_libexec(*args, &block); end
-
-  def opt_pkgshare(*args, &block); end
-
-  def opt_prefix(*args, &block); end
-
-  def opt_sbin(*args, &block); end
-
-  def var(*args, &block); end
 end
 
 module Homebrew
@@ -4665,12 +4635,6 @@ end
 
 class MacOSRunnerSpec
   def self.inherited(s); end
-end
-
-module MachOShim
-  def dylib_id(*args, &block); end
-
-  def rpaths(*args, &block); end
 end
 
 class Mechanize::HTTP
@@ -5219,6 +5183,7 @@ class Object
   HOMEBREW_MACOS_NEWEST_UNSUPPORTED = ::T.let(nil, ::T.untyped)
   HOMEBREW_MACOS_OLDEST_ALLOWED = ::T.let(nil, ::T.untyped)
   HOMEBREW_MACOS_OLDEST_SUPPORTED = ::T.let(nil, ::T.untyped)
+  HOMEBREW_MAINTAINER_JSON = ::T.let(nil, ::T.untyped)
   HOMEBREW_MAIN_TAP_CASK_REGEX = ::T.let(nil, ::T.untyped)
   HOMEBREW_OFFICIAL_REPO_PREFIXES_REGEX = ::T.let(nil, ::T.untyped)
   HOMEBREW_PHYSICAL_PROCESSOR = ::T.let(nil, ::T.untyped)
@@ -5245,7 +5210,6 @@ class Object
   HOMEBREW_VERSION = ::T.let(nil, ::T.untyped)
   HOMEBREW_WWW = ::T.let(nil, ::T.untyped)
   LINUXBREW_CORE_MIGRATION_LIST = ::T.let(nil, ::T.untyped)
-  MacOSVersionError = ::T.let(nil, ::T.untyped)
   OFFICIAL_CASK_TAPS = ::T.let(nil, ::T.untyped)
   OFFICIAL_CMD_TAPS = ::T.let(nil, ::T.untyped)
   OS_VERSION = ::T.let(nil, ::T.untyped)
@@ -5376,10 +5340,6 @@ module OpenSSL
   def self.fips_mode(); end
 end
 
-class PATH
-  def each(*args, &block); end
-end
-
 module ParallelTests
   WINDOWS = ::T.let(nil, ::T.untyped)
 end
@@ -5419,18 +5379,6 @@ class Parser::Ruby26
   Racc_debug_parser = ::T.let(nil, ::T.untyped)
 end
 
-class PkgVersion
-  def major(*args, &block); end
-
-  def major_minor(*args, &block); end
-
-  def major_minor_patch(*args, &block); end
-
-  def minor(*args, &block); end
-
-  def patch(*args, &block); end
-end
-
 class PourBottleCheck
   def on_arch_conditional(arm: T.unsafe(nil), intel: T.unsafe(nil)); end
 
@@ -5455,6 +5403,8 @@ class PourBottleCheck
   def on_monterey(or_condition=T.unsafe(nil), &block); end
 
   def on_sierra(or_condition=T.unsafe(nil), &block); end
+
+  def on_sonoma(or_condition=T.unsafe(nil), &block); end
 
   def on_system(linux, macos:, &block); end
 
@@ -5781,6 +5731,8 @@ class Resource
   def on_monterey(or_condition=T.unsafe(nil), &block); end
 
   def on_sierra(or_condition=T.unsafe(nil), &block); end
+
+  def on_sonoma(or_condition=T.unsafe(nil), &block); end
 
   def on_system(linux, macos:, &block); end
 
@@ -6390,7 +6342,7 @@ module RuboCop::AST::NodePattern::Sets
   SET_DEPENDS_ON_USES_FROM_MACOS = ::T.let(nil, ::T.untyped)
   SET_INCLUDE_WITH_WITHOUT = ::T.let(nil, ::T.untyped)
   SET_MAC_LINUX = ::T.let(nil, ::T.untyped)
-  SET_ON_ARM_ON_INTEL_ON_VENTURA_ETC = ::T.let(nil, ::T.untyped)
+  SET_ON_ARM_ON_INTEL_ON_SONOMA_ETC = ::T.let(nil, ::T.untyped)
   SET_ON_INTEL_ON_ARM = ::T.let(nil, ::T.untyped)
   SET_OR_NEWER_OR_OLDER = ::T.let(nil, ::T.untyped)
   SET_SYSTEM_SHELL_OUTPUT_PIPE_OUTPUT = ::T.let(nil, ::T.untyped)
@@ -6468,6 +6420,8 @@ class RuboCop::Cask::AST::Stanza
   def on_monterey?(); end
 
   def on_sierra?(); end
+
+  def on_sonoma?(); end
 
   def on_ventura?(); end
 
@@ -7972,6 +7926,8 @@ class SoftwareSpec
 
   def on_sierra(or_condition=T.unsafe(nil), &block); end
 
+  def on_sonoma(or_condition=T.unsafe(nil), &block); end
+
   def on_system(linux, macos:, &block); end
 
   def on_system_conditional(macos: T.unsafe(nil), linux: T.unsafe(nil)); end
@@ -8203,10 +8159,6 @@ end
 module UnpackStrategy
   extend ::T::Private::Abstract::Hooks
   extend ::T::InterfaceWrapper::Helpers
-end
-
-class Utils::AST::FormulaAST
-  def process(*args, &block); end
 end
 
 module Utils::Analytics

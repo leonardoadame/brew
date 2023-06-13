@@ -281,6 +281,14 @@ Enable debugging and profiling of audit methods\.
 Download a bottle (if available) or source packages for \fIformula\fRe and binaries for \fIcask\fRs\. For files, also print SHA\-256 checksums\.
 .
 .TP
+\fB\-\-os\fR
+Download for the given operating system\.(Pass \fBall\fR to download for all operating systems\.)
+.
+.TP
+\fB\-\-arch\fR
+Download for the given CPU architecture\.(Pass \fBall\fR to download for all architectures\.)
+.
+.TP
 \fB\-\-bottle\-tag\fR
 Download a bottle for given tag\.
 .
@@ -751,6 +759,14 @@ Note that older version symlinks will also be created so e\.g\. Ruby 3\.2\.1 wil
 Import all items from the specified \fItap\fR, or from all installed taps if none is provided\. This can be useful for debugging issues across all items when making significant changes to \fBformula\.rb\fR, testing the performance of loading all items or checking if any current formulae/casks have Ruby issues\.
 .
 .TP
+\fB\-\-os\fR
+Read using the given operating system\. (Pass \fBall\fR to simulate all operating systems\.)
+.
+.TP
+\fB\-\-arch\fR
+Read using the given CPU architecture\. (Pass \fBall\fR to simulate all architectures\.)
+.
+.TP
 \fB\-\-aliases\fR
 Verify any alias symlinks in each tap\.
 .
@@ -1169,6 +1185,14 @@ Display Homebrew\'s download cache\. See also \fBHOMEBREW_CACHE\fR\.
 If \fIformula\fR is provided, display the file or directory used to cache \fIformula\fR\.
 .
 .TP
+\fB\-\-os\fR
+Show cache file for the given operating system\.(Pass \fBall\fR to show cache files for all operating systems\.)
+.
+.TP
+\fB\-\-arch\fR
+Show cache file for the given CPU architecture\.(Pass \fBall\fR to show cache files for all architectures\.)
+.
+.TP
 \fB\-s\fR, \fB\-\-build\-from\-source\fR
 Show the cache file used when building from source\.
 .
@@ -1256,6 +1280,14 @@ Print the version numbers of Homebrew, Homebrew/homebrew\-core and Homebrew/home
 .
 .SS "\fBaudit\fR [\fIoptions\fR] [\fIformula\fR|\fIcask\fR \.\.\.]"
 Check \fIformula\fR for Homebrew coding style violations\. This should be run before submitting a new formula or cask\. If no \fIformula\fR|\fIcask\fR are provided, check all locally available formulae and casks and skip style checks\. Will exit with a non\-zero status if any errors are found\.
+.
+.TP
+\fB\-\-os\fR
+Audit the given operating system\. (Pass \fBall\fR to audit all operating systems\.)
+.
+.TP
+\fB\-\-arch\fR
+Audit the given CPU architecture\. (Pass \fBall\fR to audit all architectures\.)
 .
 .TP
 \fB\-\-strict\fR
@@ -1629,7 +1661,7 @@ Contributions to Homebrew repos\.
 .
 .TP
 \fB\-\-repositories\fR
-Specify a comma\-separated (no spaces) list of repositories to search\. Supported repositories: \fBbrew\fR, \fBcore\fR, \fBcask\fR, \fBaliases\fR, \fBautoupdate\fR, \fBbundle\fR, \fBcommand\-not\-found\fR, \fBtest\-bot\fR, \fBservices\fR, \fBcask\-drivers\fR, \fBcask\-fonts\fR and \fBcask\-versions\fR\. Omitting this flag, or specifying \fB\-\-repositories=all\fR, searches all repositories\. Use \fB\-\-repositories=primary\fR to search only the main repositories: brew,core,cask\.
+Specify a comma\-separated (no spaces) list of repositories to search\. Supported repositories: \fBbrew\fR, \fBcore\fR, \fBcask\fR, \fBaliases\fR, \fBautoupdate\fR, \fBbundle\fR, \fBcommand\-not\-found\fR, \fBtest\-bot\fR, \fBservices\fR, \fBcask\-fonts\fR and \fBcask\-versions\fR\. Omitting this flag, or specifying \fB\-\-repositories=all\fR, searches all repositories\. Use \fB\-\-repositories=primary\fR to search only the main repositories: brew,core,cask\.
 .
 .TP
 \fB\-\-from\fR
@@ -2619,6 +2651,10 @@ Read the \fBBrewfile\fR from \fB~/\.Brewfile\fR\.
 \fBlist\fR Whalebrew dependencies\.
 .
 .TP
+\fB\-\-vscode\fR
+\fBlist\fR VSCode extensions\.
+.
+.TP
 \fB\-\-describe\fR
 \fBdump\fR adds a description comment above each line, unless the dependency does not have a description\.
 .
@@ -3508,7 +3544,7 @@ Homebrew API: \fIhttps://rubydoc\.brew\.sh\fR
 Homebrew\'s Project Leader is Mike McQuaid\.
 .
 .P
-Homebrew\'s Project Leadership Committee is Colin Dean, Issy Long, Jonathan Chang, Mike McQuaid, Misty De Méo and Sean Molenaar\.
+Homebrew\'s Project Leadership Committee is Colin Dean, Issy Long, Mike McQuaid, Misty De Méo and Sean Molenaar\.
 .
 .P
 Homebrew\'s Technical Steering Committee is Bo Anderson, FX Coudert, Michka Popoff, Mike McQuaid and Rylan Polster\.

@@ -41,12 +41,10 @@ module Homebrew
       return unless @style_offenses
 
       @style_offenses.each do |offense|
-        correction_status = "#{Tty.green}[Corrected]#{Tty.reset} " if offense.corrected?
-
         cop_name = "#{offense.cop_name}: " if @display_cop_names
-        message = "#{cop_name}#{correction_status}#{offense.message}"
+        message = "#{cop_name}#{offense.message}"
 
-        problem message, location: offense.location
+        problem message, location: offense.location, corrected: offense.corrected?
       end
     end
 
@@ -347,12 +345,28 @@ module Homebrew
       # TODO: remove this and check these there too.
       return if Homebrew::SimulateSystem.simulating_or_running_on_linux?
 
+      # Skip the versioned dependencies conflict audit on the OpenSSL migration branch.
+      # TODO: Remove this when OpenSSL migration is complete.
+      ignore_openssl_conflict = if (github_event_path = ENV.fetch("GITHUB_EVENT_PATH", nil)).present?
+        event_payload = JSON.parse(File.read(github_event_path))
+        head_info = event_payload.dig("pull_request", "head").to_h # handle `nil`
+
+        # We need to read the head ref from `GITHUB_EVENT_PATH` because
+        # `git branch --show-current` returns `master` on PR branches.
+        openssl_migration_branch = head_info["ref"] == "openssl-migration"
+        homebrew_owned_repo = head_info.dig("repo", "owner", "login") == "Homebrew"
+        homebrew_core_pr = head_info.dig("repo", "name") == "homebrew-core"
+
+        openssl_migration_branch && homebrew_owned_repo && homebrew_core_pr
+      end
+
       recursive_runtime_formulae = formula.runtime_formula_dependencies(undeclared: false)
       version_hash = {}
       version_conflicts = Set.new
       recursive_runtime_formulae.each do |f|
         name = f.name
         unversioned_name, = name.split("@")
+        next if unversioned_name == "openssl" && ignore_openssl_conflict
         # Allow use of the full versioned name (e.g. `python@3.99`) or an unversioned alias (`python`).
         next if formula.tap&.audit_exception :versioned_formula_dependent_conflicts_allowlist, name
         next if formula.tap&.audit_exception :versioned_formula_dependent_conflicts_allowlist, unversioned_name
@@ -873,12 +887,12 @@ module Homebrew
 
     private
 
-    def problem(message, location: nil)
-      @problems << ({ message: message, location: location })
+    def problem(message, location: nil, corrected: false)
+      @problems << ({ message: message, location: location, corrected: corrected })
     end
 
-    def new_formula_problem(message, location: nil)
-      @new_formula_problems << ({ message: message, location: location })
+    def new_formula_problem(message, location: nil, corrected: false)
+      @new_formula_problems << ({ message: message, location: location, corrected: corrected })
     end
 
     def head_only?(formula)
